@@ -1,3 +1,5 @@
+// Entry by @arukh89 — video: https://www.tiktok.com/@agentscuan.id/video/7711440890471976213 (posted 24 Nov 2026).
+// The ad was decided and rendered in the agent session that built this repository; see README.md.
 // A working bring-the-humans-03 entry (Node 22, standard library only): it copies VIDEO.json from the repository root
 // to /output/VIDEO.json, where the gate reads it. That is all the program has to do. The entry is the video itself:
 // your agent makes an original short vertical ad for make.fun, the ad is posted publicly on TikTok from a public account
