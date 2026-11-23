@@ -18,11 +18,19 @@
 // Outside the grader's container, MAKEFUN_BOT_DIR and MAKEFUN_OUTPUT_DIR stand in for /bot and /output:
 //   mkdir -p out && MAKEFUN_BOT_DIR=. MAKEFUN_OUTPUT_DIR=out node main.ts
 
-import { copyFileSync, mkdirSync } from 'node:fs';
+import { copyFileSync, mkdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const BOT_DIR = process.env.MAKEFUN_BOT_DIR ?? '/bot';
 const OUTPUT_DIR = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
+
+// The video's address must be a full TikTok video URL; refuse a placeholder or a
+// short link instead of handing the gate an address it cannot read.
+const { url } = JSON.parse(readFileSync(join(BOT_DIR, 'VIDEO.json'), 'utf8')) as { url?: unknown };
+if (typeof url !== 'string' || !/^https:\/\/www\.tiktok\.com\/@[^/]+\/video\/\d+$/.test(url)) {
+  console.error('VIDEO.json must name a full TikTok video URL: https://www.tiktok.com/@<handle>/video/<id>');
+  process.exit(1);
+}
 
 mkdirSync(OUTPUT_DIR, { recursive: true });
 try {
